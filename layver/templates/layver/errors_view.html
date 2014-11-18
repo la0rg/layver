@@ -1,0 +1,57 @@
+{% extends 'layver/base.html' %}
+{% load staticfiles %}
+
+{% block errors %}
+
+<div class="row">
+    <div id="c1" class="col-sm-6">
+        <div class="media browser">
+            <div class="media-left">
+                {% with 'layver/'|add:page.browser1|add:'_icon.png' as icon %}
+                    <img src="{% static icon %}">
+                {% endwith %}
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ page.browser1 }}</h4>
+            </div>
+        </div>
+        <div class="screen_holder thumbnail">
+            <img id="loader1" src="{% static 'layver/ajax-loader.gif' %}" />
+        </div>
+    </div>
+    <div id="c2" class="col-sm-6">
+        <div class="media browser">
+            <div class="media-left">
+                {% with 'layver/'|add:page.browser2|add:'_icon.png' as icon %}
+                    <img src="{% static icon %}">
+                {% endwith %}
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{ page.browser2 }}</h4>
+            </div>
+        </div>
+        <div class="screen_holder thumbnail">
+            <img id="loader2" src="{% static 'layver/ajax-loader.gif' %}"/>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block errors_js %}
+<script>
+    $.get("{% url 'tag_errors' page.id %}", function() {
+        $("#loader1").hide();
+        $("#loader2").hide();
+        $("#c1 .screen_holder").append('<img src="/media/marks/mark_errors_screen_{{ page.id }}_sh_{{ page.browser1 }}.png.png"/>');
+        $("#c2 .screen_holder").append('<img src="/media/marks/mark_errors_screen_{{ page.id }}_sh_{{ page.browser1 }}.png.png"/>');
+    });
+
+    $("#c1 .screen_holder").scroll(function(){
+        $("#c2 .screen_holder").scrollTop($("#c1 .screen_holder").scrollTop());
+    });
+
+    $("#c2 .screen_holder").scroll(function(){
+        $("#c1 .screen_holder").scrollTop($("#c2 .screen_holder").scrollTop());
+    });
+</script>
+{% endblock %}

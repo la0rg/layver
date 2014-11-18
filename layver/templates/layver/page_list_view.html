@@ -1,0 +1,22 @@
+
+{% extends 'layver/base.html'%}
+
+{% block page_list_view %}
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Страница</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for page in page_list %}
+        <tr>
+            <td>{{page.id}}</td>
+            <td>{{page.link}}</td>
+            <td><a href="{% url 'results' page.id %}">Перейти</a></td>
+        </tr>
+    {% endfor %}
+   </tbody>
+</table>
+{% endblock %}

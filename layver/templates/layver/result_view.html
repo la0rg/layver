@@ -1,0 +1,78 @@
+{% extends 'layver/base.html' %}
+{% load staticfiles %}
+
+{% block result %}
+
+<div class="row">
+    <div id="c1" class="col-sm-4">
+        <div class="media browser">
+            <div class="media-left">
+                <img src="{% static 'layver/firefox_icon.png' %}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Firefox</h4>
+                Версия: 33.1.1
+            </div>
+        </div>
+        <div class="screen_holder thumbnail">
+            <img id="loader1" src="{% static 'layver/ajax-loader.gif' %}" />
+        </div>
+    </div>
+    <div id="c2" class="col-sm-4">
+        <div class="media browser">
+            <div class="media-left">
+                <img src="{% static 'layver/ie_icon.png' %}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Internet Explorer 11</h4>
+                Версия: 11.0.9600.173531
+            </div>
+        </div>
+        <div class="screen_holder thumbnail">
+            <img id="loader2" src="{% static 'layver/ajax-loader.gif' %}"/>
+        </div>
+    </div>
+    <div id="c3" class="col-sm-4">
+        <div class="media browser">
+            <div class="media-left">
+                <img src="{% static 'layver/chrome_icon.png' %}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">Google Chrome</h4>
+                Версия: 38.0.2125.111 m
+            </div>
+        </div>
+        <div class="screen_holder thumbnail">
+            <img id="loader3" src="{% static 'layver/ajax-loader.gif' %}"/>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block result_js %}
+<script>
+    $.get("{% url 'make_screenshots' page.id %}", function() {
+        $("#loader1").hide();
+        $("#loader2").hide();
+        $("#loader3").hide();
+        $("#c1 .screen_holder").append('<img src="/media/screens/{{ page.id }}_sh_firefox.png"/>');
+        $("#c2 .screen_holder").append('<img src="/media/screens/{{ page.id }}_sh_ie.png"/>');
+        $("#c3 .screen_holder").append('<img src="/media/screens/{{ page.id }}_sh_chrome.png"/>');
+    });
+
+    $("#c1 .screen_holder").scroll(function(){
+        $("#c2 .screen_holder").scrollTop($("#c1 .screen_holder").scrollTop());
+        $("#c3 .screen_holder").scrollTop($("#c1 .screen_holder").scrollTop());
+    });
+
+    $("#c2 .screen_holder").scroll(function(){
+        $("#c1 .screen_holder").scrollTop($("#c2 .screen_holder").scrollTop());
+        $("#c3 .screen_holder").scrollTop($("#c2 .screen_holder").scrollTop());
+    });
+
+    $("#c3 .screen_holder").scroll(function(){
+        $("#c1 .screen_holder").scrollTop($("#c3 .screen_holder").scrollTop());
+        $("#c2 .screen_holder").scrollTop($("#c3 .screen_holder").scrollTop());
+    });
+</script>
+{% endblock %}

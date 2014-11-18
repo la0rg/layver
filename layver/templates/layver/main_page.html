@@ -1,0 +1,24 @@
+{% extends 'layver/base.html' %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'layver/style.css' %}" />
+
+{% block main %}
+    <form class="form-horizontal" action="{% url 'new_page' %}" method="post">
+        <fieldset>
+            <div class="text-center">
+            <legend>Введите адрес вашего сайта:</legend></div>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-5">
+                    <input class="form-control" id="focusedInput" type="text" placeholder="http://your_site.com/" name="link">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary" onclick="make_screenshots()">
+                        Начать
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

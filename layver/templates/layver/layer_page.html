@@ -1,0 +1,48 @@
+{% extends 'layver/base.html' %}
+{% load staticfiles %}
+
+{% block layer %}
+    <form class="form-horizontal" action="{% url 'layers_view' %}" method="post">
+        <fieldset>
+            <div class="text-center">
+            <legend>Введите адрес вашего сайта:</legend></div>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-5">
+                    <input class="form-control" id="focusedInput" type="text" placeholder="http://your_site.com/" name="link">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary" onclick="make_screenshots()">
+                        Начать
+                    </button>
+                </div>
+            </div>
+            <br>
+
+
+            <div class="row">
+                <div class="col-sm-offset-3 col-sm-5">
+
+                    <div class="">
+                        <label>
+                            <img src="{% static 'layver/firefox_icon.png' %}">
+                            Firefox
+                            <input type="checkbox" name="browsers[]" value="firefox">
+                        </label><br>
+                        <label>
+                            <img src="{% static 'layver/ie_icon.png' %}">
+                            Internet Explorer
+                            <input type="checkbox" name="browsers[]" value="ie">
+                        </label><br>
+                        <label>
+                            <img src="{% static 'layver/chrome_icon.png' %}">
+                            Google Chrome
+                            <input type="checkbox" name="browsers[]" value="chrome">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+{% endblock %}
